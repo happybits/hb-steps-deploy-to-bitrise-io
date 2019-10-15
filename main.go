@@ -275,10 +275,11 @@ func findAPKsAndAABs(pths []string) (apks []string, aabs []string, others []stri
 
 func deploy(clearedFilesToDeploy []string, config Config) (map[string]string, error) {
 	apks, aabs, others := findAPKsAndAABs(clearedFilesToDeploy)
-	apks, aabAPKPairs, err := ensureAABsHasUniversalAPKPair(aabs, apks)
-	if err != nil {
-		return nil, err
-	}
+	// Do not generate and distribute the universal apk - it is improperly signed:
+	//apks, aabAPKPairs, err := ensureAABsHasUniversalAPKPair(aabs, apks)
+	//if err != nil {
+	//	return nil, err
+	//}
 	androidArtifacts := append(apks, aabs...)
 
 	// deploy the apks first, as the universal apk's public install page will be used for aabs.
